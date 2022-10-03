@@ -1,9 +1,11 @@
 import WebGL from './WebGL.js';
-import GameCv from './game_cv.js';
-
+import Application from './Application.js'
 
 if ( WebGL.isWebGLAvailable() ) {
-	GameCv.start();
+	window.application = new Application({
+    	$canvas: document.querySelector('.js-canvas'),
+    	useComposer: true
+	})
 } 
 else 
 {
