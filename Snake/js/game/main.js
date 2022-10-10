@@ -2,6 +2,7 @@
 import Background from './bg.js'
 import  { Snake } from './snake.js' 
 import BonusManager from './bonus.js'
+import Keyboard from './keyboard.js'
 import Difficulty, { DifficultyLevel } from './difficulty.js'
 
 export default class
@@ -17,11 +18,24 @@ export default class
         this.container.matrixAutoUpdate = false
         this.running = false
 
+        this.keyboard = new Keyboard()
+        this.onKeyDown = this.onKeyDown.bind(this)        
+        this.keyboard.on('keydown', this.onKeyDown)
+
         this.initSnake()
         this.initDifficulty()
         this.initBonus()
         this.initBackground()
         this.reset()
+    }
+
+    onKeyDown(key)
+    {
+        if (!this.running)
+        {
+            console.log("Start GAME")
+            this.running = true;
+        }        
     }
 
     reset()
@@ -30,7 +44,7 @@ export default class
         this.score = 0;
         this.running = false;
         this.difficulty.setDifficulty(DifficultyLevel.Easy)
-        this.bonus.reset();        
+        this.bonus.reset();
     }
 
     update() 
@@ -57,7 +71,8 @@ export default class
             || this.snake.y < 0 || this.snake.y > 13 
             || this.snake.eat_himself())
         {
-            this.running = false;           
+            this.running = false;     
+            console.log("GAME OVER")
             //show_score(self.score);
             //self.init();
         }
@@ -84,27 +99,6 @@ export default class
     {
         this.difficulty = new Difficulty()
         this.timer.deltaTarget = this.difficulty.move_duration
-    }
-
-    initControls()
-    {
-        eventTarget.addEventListener("keydown", (event) => 
-        {
-            if (event.isComposing || event.keyCode === 229)
-            {
-                return;
-            }
-            // do something
-        });
-        /*
-        this.controls = new Controls({
-            config: this.config,
-            sizes: this.sizes,
-            time: this.time,
-            camera: this.camera,
-            sounds: this.sounds
-        })
-        */
     }
 
     initBackground()

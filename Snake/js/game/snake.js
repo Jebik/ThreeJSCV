@@ -25,8 +25,34 @@ class Snake
 
 
     tryAdd(dir)
-    {
-        console.log(dir)
+    { 
+        switch (dir)
+        {
+            case Dir.Left:
+                if (this.dir == Dir.Up || this.dir == Dir.Down)
+                {
+                    this.nextDir = dir;
+                }
+                break;
+            case Dir.Right:
+                if (this.dir == Dir.Up || this.dir == Dir.Down)
+                {
+                    this.nextDir = dir;
+                }
+                break;
+            case Dir.Up:
+                if (this.dir == Dir.Left || this.dir == Dir.Right)
+                {
+                    this.nextDir = dir;
+                }
+                break;
+            case Dir.Down:
+                if (this.dir == Dir.Left || this.dir == Dir.Right)
+                {
+                    this.nextDir = dir;
+                }
+                break;
+        }
     }
 
     reset()
@@ -39,6 +65,7 @@ class Snake
         this.container.add(this.head.container)
         this.head.setPosition(12,6)
         this.dir = Dir.Right
+        this.nextDir = Dir.Right
         this.x = this.head.x;
         this.y = this.head.y
     }
@@ -50,9 +77,12 @@ class Snake
     
     reach()
     {
-        this.x += this.dir.x;
-        this.y += this.dir.y;
+        this.dir = this.nextDir
+        this.x += this.dir.x
+        this.y += this.dir.y
         this.head.setPosition(this.x,this.y)
+        console.log("NEW POSITION")
+        console.log("x:" + this.x + " y:" + this.y)
     }
 }
 export {Snake, Dir}

@@ -17,6 +17,7 @@ export default class Keyboard extends EventsHandler
 
         this.keyboard.events.keyDown = (_event) =>
         {
+            this.trigger('keydown', _event.key)
             switch(_event.key)
             {
                 case 'ArrowUp':
