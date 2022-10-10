@@ -18,8 +18,8 @@ export default class Application
         this.window = new WindowSize()
         
         this.initConfig()
-        this.initCamera()
         this.iniRenderer()
+        this.initCamera()
         this.initCube()
         this.initMap()
     }
@@ -38,7 +38,6 @@ export default class Application
             time: this.time,
             sizes: this.sizes,
             renderer: this.renderer,
-            debug: this.debug,
             config: this.config
         })
 
