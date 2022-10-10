@@ -22,6 +22,7 @@ export default class Application
         this.initCamera()
         this.initMap()
     }
+    
 
     destructor()
     {

@@ -35,7 +35,6 @@ export default class
 
     update() 
     {
-        console.log("Update")
         if (this.running)
         {
             this.realGameUpdate()
@@ -89,6 +88,14 @@ export default class
 
     initControls()
     {
+        eventTarget.addEventListener("keydown", (event) => 
+        {
+            if (event.isComposing || event.keyCode === 229)
+            {
+                return;
+            }
+            // do something
+        });
         /*
         this.controls = new Controls({
             config: this.config,

@@ -1,4 +1,5 @@
 import Head from './head.js'
+import Keyboard from './keyboard.js'
 
 export const Dir = Object.freeze({
 	Up: {x:0, y:0},
@@ -12,8 +13,22 @@ export default class Snake
     {
         this.config = data.config
         this.container = data.container
+        this.keyboard = new Keyboard()
 
+        this.onDirKeyDown = this.onDirKeyDown.bind(this)
+        this.keyboard.on('dir', this.onDirKeyDown)
         this.initHead()
+    }
+
+    onDirKeyDown(dir)
+    {
+        console.log(dir)
+        this.tryAdd(dir)
+    }
+
+    tryAdd(dir)
+    {
+        console.log(dir)
     }
 
     reset()

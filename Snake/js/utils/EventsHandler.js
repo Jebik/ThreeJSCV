@@ -26,6 +26,10 @@ export default class EventsHandler {
             {
                 listeners.forEach((listener) => 
                 {
+                    if(label == 'dir')
+                    {
+                        console.log(listener)
+                    }
                     listener(...args);
                 });
                 res = true;
