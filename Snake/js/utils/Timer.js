@@ -10,10 +10,9 @@ export default class Timer extends EventsHandler
         this.current = this.start
         this.elapsed = 0
         this.delta = 16
-        this.targetDelta = 200
+        this.deltaTarget = 500
 
         this.tick = this.tick.bind(this)
-        //this.tock = this.tock.bind(this)
         this.tick()
     }
 
@@ -28,25 +27,16 @@ export default class Timer extends EventsHandler
 
         this.delta = current - this.current
         this.elapsed = current - this.start
-        //console.log(this.elapsed.toString())
-        /*if (this.elapsed > this.targetDelta)
+        if (this.elapsed > this.deltaTarget)
         {
-            console.log(this.targetDelta)
-            //this.tock();
-        }*/
+            this.start = current
+            this.trigger('reach')
+        }
         this.current = current
 
         this.trigger('tick')
     }
 
-    /**
-     * Tick
-     */
-    tock()
-    {
-        //this.start = Date.now()
-        //this.trigger('tock')
-    }
 
     /**
      * Stop

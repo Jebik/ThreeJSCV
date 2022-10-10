@@ -32,7 +32,7 @@ export default class Application
     initCamera()
     {
         this.camera = new THREE.PerspectiveCamera( 45, this.window.width/this.window.height, 1, 1000 );
-        this.camera.position.z = 1.3;
+        this.camera.position.z = 1.8;
     }
     
     initConfig()
@@ -45,10 +45,7 @@ export default class Application
     {        
         this.game = new Game({
             config: this.config,
-            time: this.time,
-            sizes: this.sizes,
-            camera: this.camera,
-            renderer: this.renderer
+            timer: this.timer,
         })
         this.scene.add(this.game.container)
     }
@@ -75,6 +72,11 @@ export default class Application
         this.timer.on('tick', () =>
         {
             this.renderer.render(this.scene, this.camera);
+        })
+        //Render Event
+        this.timer.on('reach', () =>
+        {
+            this.game.update();
         })
 
         // Resize event
