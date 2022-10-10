@@ -1,6 +1,6 @@
 
 import Background from './bg.js'
-import Snake from './snake.js'
+import  { Snake } from './snake.js' 
 import BonusManager from './bonus.js'
 import Difficulty, { DifficultyLevel } from './difficulty.js'
 
@@ -72,7 +72,7 @@ export default class
     }
 
     initSnake()
-    {   
+    {
         this.snake = new Snake({
             config: this.config,
             timer: this.timer,

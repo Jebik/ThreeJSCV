@@ -1,30 +1,28 @@
 import Head from './head.js'
 import Keyboard from './keyboard.js'
 
-export const Dir = Object.freeze({
-	Up: {x:0, y:0},
-    Left: {x:0, y:0},
-    Down: {x:0, y:0},
-	Right: {x:0, y:0}});
+const Dir = Object.freeze({
+	Up: {x:0, y:-1},
+    Left: {x:-1, y:0},
+    Down: {x:0, y:1},
+	Right: {x:1, y:0}});
 
-export default class Snake
+class Snake
 {
     constructor(data)
     {
         this.config = data.config
         this.container = data.container
-        this.keyboard = new Keyboard()
+        this.keyboard = new Keyboard() 
 
-        this.onDirKeyDown = this.onDirKeyDown.bind(this)
+        this.onDirKeyDown = (_event) =>
+        {
+            this.tryAdd(_event)
+        }
         this.keyboard.on('dir', this.onDirKeyDown)
         this.initHead()
     }
 
-    onDirKeyDown(dir)
-    {
-        console.log(dir)
-        this.tryAdd(dir)
-    }
 
     tryAdd(dir)
     {
@@ -57,3 +55,4 @@ export default class Snake
         this.head.setPosition(this.x,this.y)
     }
 }
+export {Snake, Dir}

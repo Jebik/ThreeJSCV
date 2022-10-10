@@ -1,5 +1,5 @@
 import EventsHandler from '../utils/EventsHandler.js'
-import Dir from './snake.js'
+import { Dir } from './snake.js'
 
 export default class Keyboard extends EventsHandler
 {
