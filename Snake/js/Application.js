@@ -1,8 +1,10 @@
-import './lib/three.js'
 import WindowSize from './utils/WindowSize.js'
 import Timer from './utils/Timer.js'
-import Game from './game/main.js' 
-
+import Game from './game/main.js'
+/* 
+IMPORT THREE
+import './lib/three.js'
+*/
 export default class Application
 {  
     /**
@@ -24,6 +26,7 @@ export default class Application
     destructor()
     {
         this.timer.off('tick')
+        this.timer.off('reach')
         this.window.off('resize')
 
         this.renderer.dispose()
@@ -31,8 +34,8 @@ export default class Application
 
     initCamera()
     {
-        this.camera = new THREE.PerspectiveCamera( 45, this.window.width/this.window.height, 1, 1000 );
-        this.camera.position.z = 1.8;
+        this.camera = new THREE.PerspectiveCamera(45, this.window.width/this.window.height, 1, 1000 );
+        this.camera.position.z = 0.64
     }
     
     initConfig()
@@ -42,7 +45,7 @@ export default class Application
     }
 
     initMap()
-    {        
+    {
         this.game = new Game({
             config: this.config,
             timer: this.timer,

@@ -13,6 +13,7 @@ export default class WindowsSize extends EventsHandler
         // Resize event
         this.resize = this.resize.bind(this)        
         window.onresize = this.resize;
+        this.resize()
     }
 
     resize() {

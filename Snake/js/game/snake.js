@@ -1,12 +1,16 @@
 import Head from './head.js'
-import Timer from '../utils/Timer.js'
+
+export const Dir = Object.freeze({
+	Up: {x:0, y:0},
+    Left: {x:0, y:0},
+    Down: {x:0, y:0},
+	Right: {x:0, y:0}});
 
 export default class Snake
 {
     constructor(data)
     {
         this.config = data.config
-        this.timer = data.timer
         this.container = data.container
 
         this.initHead()
@@ -21,6 +25,7 @@ export default class Snake
         this.head = new Head()
         this.container.add(this.head.container)
         this.head.setPosition(12,6)
+        this.dir = Dir.Right
         this.x = this.head.x;
         this.y = this.head.y
     }
@@ -29,20 +34,11 @@ export default class Snake
     {
         return false;
     }
-
-    start()
-    {
-        //Render Event
-        this.timer.on('reach', () =>
-        {
-            this.x = this.head.x
-            this.y = this.head.y
-            this.head.setPosition(this.x,this.y)
-        })
-    }
     
     reach()
     {
-        //DO MOVE
+        this.x += this.dir.x;
+        this.y += this.dir.y;
+        this.head.setPosition(this.x,this.y)
     }
 }

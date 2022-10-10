@@ -1,13 +1,13 @@
 
 import Background from './bg.js'
 import Snake from './snake.js'
-import Bonus from './bonus.js'
+import BonusManager from './bonus.js'
 import Difficulty, { DifficultyLevel } from './difficulty.js'
 
 export default class
 {
     constructor(data)
-    {        
+    {      
         // Options
         this.config = data.config
         this.timer = data.timer
@@ -17,7 +17,6 @@ export default class
         this.container.matrixAutoUpdate = false
         this.running = false
 
-        // this.setAxes()
         this.initSnake()
         this.initDifficulty()
         this.initBonus()
@@ -36,6 +35,7 @@ export default class
 
     update() 
     {
+        console.log("Update")
         if (this.running)
         {
             this.realGameUpdate()
@@ -44,29 +44,12 @@ export default class
 
     realGameUpdate() 
     {
+        console.log("REALUpdate")
         this.snake.reach()
         //Check if game over.
         this.checkGameOver();
         //Check if on bonus
-        /*
-        for i in 0.. self.bonus_list.len()
-        {
-            let b = self.bonus_list[i];
-            if self.snake.pos.x == b.x 
-                && self.snake.pos.y == b.y
-            {
-                //We got apple
-                self.score += self.difficulty.score_per_bonus;
-                self.snake.start();
-                self.update_title(ctx);
-                self.bonus_list.remove(i);
-                self.get_new_difficulty();
-                self.snake.grow();
-                self.spawn_bonus();
-                break;
-            }
-        }
-        */
+        this.bonus.reach()
     }
 
     checkGameOver() 
@@ -83,7 +66,7 @@ export default class
 
     initBonus()
     {
-        this.bonus = new Bonus({
+        this.bonus = new BonusManager({
             snake: this.snake,
             game: this,
         })

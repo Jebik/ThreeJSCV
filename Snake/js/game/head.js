@@ -6,8 +6,8 @@ export default class Head extends PosHelper
     constructor(_options)
     {
         super()
-        var w = 64/1600 * 2
-        var h = 64/896 *2 
+        var w = 64/1600
+        var h = 64/896
         // Container
         this.container = new THREE.Object3D()
         this.container.matrixAutoUpdate = false
@@ -22,8 +22,8 @@ export default class Head extends PosHelper
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.frustumCulled = false
         this.mesh.matrixAutoUpdate = true
-        this.mesh.position.x = -1 + 64/1600
-        this.mesh.position.y = -1 + 64/896
+        this.mesh.position.x = 64/1600
+        this.mesh.position.y = 64/896
         this.mesh.updateMatrix() 
         this.container.add(this.mesh)
     }
