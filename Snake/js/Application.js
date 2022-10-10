@@ -45,27 +45,11 @@ export default class Application
 
     initCube()
     {
-        var geometry = new THREE.BoxGeometry( 3, 2, 3 );
-        var material = new THREE.MeshBasicMaterial( { color: 0xaa0044 } );
-        this.cube = new THREE.Mesh( geometry, material );
-        this.scene.add(this.cube);
-
         // Time tick
         this.timer.on('tick', () =>
         {
-            this.cube.rotation.x += 0.02;
-            this.cube.rotation.y += 0.01;
-            this.cube.position.y = 2;
+            
         })
-
-        
-        var geometry = new THREE.BoxGeometry( 30, 1, 30);
-        var material = new THREE.MeshBasicMaterial( { color: 0xaa8844 } );
-        var plan = new THREE.Mesh( geometry, material );
-        plan.position.z = -15
-        plan.position.y = -2
-        plan.position.x = -5
-        this.scene.add(plan);
     }
 
     initMap()
