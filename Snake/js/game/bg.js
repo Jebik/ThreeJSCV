@@ -9,7 +9,7 @@ export default class Background
         this.container.matrixAutoUpdate = false
 
         // Geometry
-        this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1)
+        this.geometry = new THREE.PlaneGeometry(2, 2)
 
         // Material
         this.material = new BackgroundMaterial()
@@ -17,7 +17,7 @@ export default class Background
         // Mesh
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.frustumCulled = false
-        this.mesh.matrixAutoUpdate = false
+        this.mesh.matrixAutoUpdate = true
         this.mesh.updateMatrix()
         this.container.add(this.mesh)
     }

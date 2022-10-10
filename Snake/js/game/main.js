@@ -22,10 +22,10 @@ export default class
         this.onKeyDown = this.onKeyDown.bind(this)        
         this.keyboard.on('keydown', this.onKeyDown)
 
+        this.initBackground()
         this.initSnake()
         this.initDifficulty()
         this.initBonus()
-        this.initBackground()
         this.reset()
     }
 

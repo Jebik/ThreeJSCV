@@ -14,7 +14,7 @@ export default class posHelper
         this.x = x
         this.y = y
         var translated_x = 2*x/25 -1
-        var translated_y = 2.*y/14. -1
+        var translated_y = 2*y/14. -1
         this.mesh.position.x = translated_x + 64/1600
         this.mesh.position.y = translated_y + 64/896
     }

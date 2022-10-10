@@ -35,8 +35,8 @@ export default class Application
 
     initCamera()
     {
-        this.camera = new THREE.PerspectiveCamera(45, this.window.width/this.window.height, 1, 1000 );
-        this.camera.position.z = 0.64
+        this.camera = new THREE.PerspectiveCamera( 60, this.window.width / this.window.height, 0.1, 100 );
+        this.camera.position.set( 0, 0, 1.5 );
     }
     
     initConfig()

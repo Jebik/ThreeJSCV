@@ -13,7 +13,7 @@ export default class Head extends PosHelper
         this.container.matrixAutoUpdate = false
 
         // Geometry
-        this.geometry = new THREE.PlaneGeometry(w, h, 1, 1)
+        this.geometry = new THREE.PlaneGeometry(w, h)
 
         // Material
         this.material = new HeadMaterial()

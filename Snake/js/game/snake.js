@@ -2,9 +2,9 @@ import Head from './head.js'
 import Keyboard from './keyboard.js'
 
 const Dir = Object.freeze({
-	Up: {x:0, y:-1},
+	Down: {x:0, y:-1},
     Left: {x:-1, y:0},
-    Down: {x:0, y:1},
+    Up: {x:0, y:1},
 	Right: {x:1, y:0}});
 
 class Snake
@@ -68,6 +68,8 @@ class Snake
         this.nextDir = Dir.Right
         this.x = this.head.x;
         this.y = this.head.y
+        console.log("HEAD DRAW")
+        console.log(this.container)
     }
 
     eat_himself()
