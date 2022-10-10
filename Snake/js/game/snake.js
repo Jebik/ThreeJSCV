@@ -1,4 +1,5 @@
 import Head from './head.js'
+import Body from './body.js'
 import Keyboard from './keyboard.js'
 
 const Dir = Object.freeze({
@@ -23,7 +24,15 @@ class Snake
         this.initHead()
     }
 
-
+    grow()
+    {
+        console.log("GROW")
+        var body = new Body()
+        body.setPosition(-1, -1)
+        this.bodyList.push(body)        
+        this.container.add(body.container)
+    }
+    
     tryAdd(dir)
     { 
         switch (dir)
@@ -57,19 +66,25 @@ class Snake
 
     reset()
     {
+        //REMOVE ALL
+        this.bodyList.forEach(body => {
+            this.container.remove(body.container)
+            this.bodyList = this.bodyList.filter(function(b)
+            { return b != body })
+        });
+        this.head.setPosition(12,6)
+        this.dir = Dir.Right
+        this.nextDir = Dir.Right
+        this.x = this.head.x;
+        this.y = this.head.y
     }
 
     initHead()
     {
         this.head = new Head()
         this.container.add(this.head.container)
-        this.head.setPosition(12,6)
-        this.dir = Dir.Right
-        this.nextDir = Dir.Right
-        this.x = this.head.x;
-        this.y = this.head.y
-        console.log("HEAD DRAW")
-        console.log(this.container)
+        this.bodyList = []
+        this.reset()
     }
 
     eat_himself()
@@ -78,13 +93,23 @@ class Snake
     }
     
     reach()
-    {
+    {        
+        var last_x = this.x
+        var last_y = this.y
         this.dir = this.nextDir
         this.x += this.dir.x
         this.y += this.dir.y
         this.head.setPosition(this.x,this.y)
-        console.log("NEW POSITION")
-        console.log("x:" + this.x + " y:" + this.y)
+        
+        this.bodyList.forEach(body => {
+            let curr_x = body.x;
+            let curr_y = body.y;
+            body.x = last_x;
+            body.y = last_y;
+            last_x = curr_x;
+            last_y = curr_y;           
+            body.setPosition(body.x,body.y)
+        })
     }
 }
 export {Snake, Dir}

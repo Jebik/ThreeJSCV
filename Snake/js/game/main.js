@@ -1,7 +1,7 @@
 
 import Background from './bg.js'
 import  { Snake } from './snake.js' 
-import BonusManager from './bonus.js'
+import BonusManager from './bonusManager.js'
 import Keyboard from './keyboard.js'
 import Difficulty, { DifficultyLevel } from './difficulty.js'
 
@@ -40,11 +40,12 @@ export default class
 
     reset()
     {
+        this.running = false;
         this.snake.reset();
         this.score = 0;
-        this.running = false;
         this.difficulty.setDifficulty(DifficultyLevel.Easy)
-        this.bonus.reset();
+        this.timer.deltaTarget = this.difficulty.move_duration
+        this.bonusManager.reset();
     }
 
     update() 
@@ -57,12 +58,11 @@ export default class
 
     realGameUpdate() 
     {
-        console.log("REALUpdate")
         this.snake.reach()
-        //Check if game over.
-        this.checkGameOver();
         //Check if on bonus
-        this.bonus.reach()
+        this.bonusManager.reach()
+        //Check if game over.
+        this.checkGameOver()
     }
 
     checkGameOver() 
@@ -73,15 +73,31 @@ export default class
         {
             this.running = false;     
             console.log("GAME OVER")
-            //show_score(self.score);
-            //self.init();
+            this.showScore(this.score);
+            this.reset();
         }
+    }
+    
+    showScore(score)
+    {
+        var message_body = "Vous avez perdu\n\n"
+        message_body += "Score: "
+        message_body += score
+        alert(message_body)
+    }
+
+    eatBonus()
+    {
+        this.score += this.difficulty.score_per_bonus
+        this.difficulty.getNewDifficulty(this.difficulty.level, this.score)
+        this.timer.deltaTarget = this.difficulty.move_duration
     }
 
     initBonus()
     {
-        this.bonus = new BonusManager({
+        this.bonusManager = new BonusManager({
             snake: this.snake,
+            container: this.container,
             game: this,
         })
     }
@@ -98,7 +114,6 @@ export default class
     initDifficulty()
     {
         this.difficulty = new Difficulty()
-        this.timer.deltaTarget = this.difficulty.move_duration
     }
 
     initBackground()

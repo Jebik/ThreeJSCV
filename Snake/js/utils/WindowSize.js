@@ -8,11 +8,15 @@ export default class WindowsSize extends EventsHandler
     constructor()
     {
         super()
-        this.width = window.innerWidth
-        this.height = window.innerHeight
+        /*
+            For Some Reason innerWidth is fucked a little 
+            bit to big here
+            So we create a fake object to get thre real size
+        */
+
         // Resize event
-        this.resize = this.resize.bind(this)        
-        window.onresize = this.resize;
+        this.resize = this.resize.bind(this)
+        window.addEventListener('resize', this.resize)
         this.resize()
     }
 
@@ -21,5 +25,6 @@ export default class WindowsSize extends EventsHandler
         this.height = window.innerHeight
 
         this.trigger('resize')
+        console.log("Width: " + this.width + " Height: " + this.height)
     }
 }

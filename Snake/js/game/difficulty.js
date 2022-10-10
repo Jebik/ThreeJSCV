@@ -6,7 +6,7 @@ export const DifficultyLevel = Object.freeze({
 
 export default class Difficulty
 {
-    constructor(data)
+    constructor()
     {
         this.setDifficulty(DifficultyLevel.Easy)
     }
@@ -17,17 +17,22 @@ export default class Difficulty
         {
             case DifficultyLevel.Easy:
                 new_difficulty = DifficultyLevel.Medium
+                break
             case DifficultyLevel.Medium:
                 new_difficulty = DifficultyLevel.Hard
+                break
             case DifficultyLevel.Hard:
                 new_difficulty = DifficultyLevel.Insane
+                break
             case DifficultyLevel.Insane:
                 new_difficulty = DifficultyLevel.Insane
+                break
         }
 
-        if (score > this.difficulty.next_level_trigger)
+        if (score > this.next_level_trigger)
         {
-            this.difficulty = setDifficulty(new_difficulty);
+            console.log("LEVEL UP")
+            this.setDifficulty(new_difficulty);
         }
     }
 

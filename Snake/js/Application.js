@@ -19,7 +19,7 @@ export default class Application
         
         this.initConfig()
         this.iniRenderer()
-        this.initCamera()
+        this.setCamera()
         this.initMap()
     }
     
@@ -33,10 +33,26 @@ export default class Application
         this.renderer.dispose()
     }
 
-    initCamera()
+    setCamera()
     {
-        this.camera = new THREE.PerspectiveCamera( 60, this.window.width / this.window.height, 0.1, 100 );
-        this.camera.position.set( 0, 0, 1.5 );
+        var w = 1600
+        var h = 896
+        var aspectRatio = h / w;
+        var left = -aspectRatio*2
+        var right = aspectRatio*2
+        var top = 1
+        var bottom = -1
+        var near = -1
+        var far = 1
+                
+        this.camera = new THREE.OrthographicCamera(
+            left,
+            right,
+            top,
+            bottom,
+            near,
+            far);
+        this.camera.updateProjectionMatrix();
     }
     
     initConfig()
@@ -68,15 +84,14 @@ export default class Application
         document.body.appendChild(this.renderer.domElement );
         //this.renderer.setClearColor(0x414141, 1)
         this.renderer.setClearColor(0xaaeeff, 1)
-        this.renderer.setPixelRatio(2)
+        this.renderer.setPixelRatio(1)
         this.renderer.gammaOutPut = true
         this.renderer.autoClear = true
 
+        
+        this.draw = this.draw.bind(this)
         //Render Event
-        this.timer.on('tick', () =>
-        {
-            this.renderer.render(this.scene, this.camera);
-        })
+        this.timer.on('tick', this.draw);
         //Render Event
         this.timer.on('reach', () =>
         {
@@ -86,7 +101,13 @@ export default class Application
         // Resize event
         this.window.on('resize', () =>
         {
+            this.setCamera()
             this.renderer.setSize(this.window.width, this.window.height)
         })
+    }
+
+    draw()
+    {
+        this.renderer.render(this.scene, this.camera);
     }
 }

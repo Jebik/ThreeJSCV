@@ -1,54 +1,31 @@
-
+import Material from '../shader_materials/bonus.js'
 import PosHelper from './posHelper.js'
 
-export default class BonusManager extends PosHelper
-{
-    constructor(data)
+export default class Bonus extends PosHelper
+{   
+    constructor(_options)
     {
         super()
-    }
+        var w = 64/1600
+        var h = 64/896
+        // Container
+        this.container = new THREE.Object3D()
+        this.container.matrixAutoUpdate = false
 
+        // Geometry
+        this.geometry = new THREE.PlaneGeometry(2*w, 2*h)
 
-    reset()
-    {
-        this.spawnBonus()
-    }
+        // Material
+        this.material = new Material()
 
-    spawnBonus()
-    {
-        /*
-        
-        fn spawn_bonus(&mut self){
-            while self.bonus_list.len() < self.difficulty.bonus_count as _
-            {
-                let mut rng = rand::thread_rng();
-                let x:i16 = rng.gen_range(0..self.width);
-                let y:i16 = rng.gen_range(0..self.height);
-                self.bonus_list.push(Pos{ x, y });
-            }
-        }*/
-    }
-
-    reach()
-    {        
-        /*
-        for i in 0.. self.bonus_list.len()
-        {
-            let b = self.bonus_list[i];
-            if self.snake.pos.x == b.x 
-                && self.snake.pos.y == b.y
-            {
-                //We got apple
-                self.score += self.difficulty.score_per_bonus;
-                self.snake.start();
-                self.update_title(ctx);
-                self.bonus_list.remove(i);
-                self.get_new_difficulty();
-                self.snake.grow();
-                self.spawn_bonus();
-                break;
-            }
-        }
-        */
+        // Mesh
+        this.mesh = new THREE.Mesh(this.geometry, this.material)
+        this.mesh.frustumCulled = false
+        this.mesh.matrixAutoUpdate = true
+        this.mesh.position.x = 64/1600
+        this.mesh.position.y = 64/896
+        this.mesh.position.z = 0
+        this.mesh.updateMatrix() 
+        this.container.add(this.mesh)
     }
 }

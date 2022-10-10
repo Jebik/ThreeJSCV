@@ -16,9 +16,13 @@ export default class Background
 
         // Mesh
         this.mesh = new THREE.Mesh(this.geometry, this.material)
-        this.mesh.frustumCulled = false
-        this.mesh.matrixAutoUpdate = true
+
+  //      this.mesh.position.set(1, 1, 0);
+ //       this.mesh.rotation.set(-Math.PI / 8, 0, 0);
+//        this.mesh.frustumCulled = true
+ //       this.mesh.matrixAutoUpdate = true
         this.mesh.updateMatrix()
+//        this.mesh.position.z = 1
         this.container.add(this.mesh)
     }
 }

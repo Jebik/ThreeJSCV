@@ -1,14 +1,14 @@
-import HeadMaterial from '../shader_materials/head.js'
+import Material from '../shader_materials/body.js'
 import PosHelper from './posHelper.js'
 
-export default class Head extends PosHelper
-{
+export default class Body extends PosHelper
+{   
     constructor(_options)
     {
         super()
         var w = 64/1600
         var h = 64/896
-        // Container 
+        // Container
         this.container = new THREE.Object3D()
         this.container.matrixAutoUpdate = false
 
@@ -16,7 +16,7 @@ export default class Head extends PosHelper
         this.geometry = new THREE.PlaneGeometry(2*w, 2*h)
 
         // Material
-        this.material = new HeadMaterial()
+        this.material = new Material()
 
         // Mesh
         this.mesh = new THREE.Mesh(this.geometry, this.material)
