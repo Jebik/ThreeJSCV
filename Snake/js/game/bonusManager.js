@@ -1,5 +1,4 @@
-
-import Bonus from './bonus.js'
+import TexturePlane from "./texturePlane.js";
 
 function range(start, end) {
     var ans = [];
@@ -16,6 +15,7 @@ export default class BonusManager
         this.container = data.container
         this.game = data.game
         this.snake = data.snake
+        this.textures = data.textures
         this.bonusList = []
     }
 
@@ -37,11 +37,15 @@ export default class BonusManager
         {
             var x = Math.floor(Math.random() * 25);
             var y = Math.floor(Math.random() * 14);
-            var bonus = new Bonus()
+            var bonus = new TexturePlane({
+                width: 64,
+                height: 64,
+                texture: this.textures.bonus
+            });
             bonus.setPosition(x, y)
             this.bonusList.push(bonus)
             this.container.add(bonus.container)
-            this.spawnBonus() 
+            this.spawnBonus()
         }
     }
 
@@ -60,5 +64,12 @@ export default class BonusManager
             }
         });
         this.spawnBonus()
+    }
+    
+    resize(width, height)
+    {
+        this.bonusList.forEach(bonus => {
+            bonus.resize(width, height)
+        })
     }
 }

@@ -5,8 +5,11 @@ import Game from './game/main.js'
 IMPORT THREE
 import './lib/three.js'
 */
+
+const WIDTH = 1600
+const HEIGHT = 896
 export default class Application
-{  
+{
     /**
      * Constructor
      */
@@ -16,14 +19,25 @@ export default class Application
         //Creating Base OBJECT
         this.timer = new Timer()
         this.window = new WindowSize()
+        this.init()
+    }
+
+    init() 
+    {
+        this.loader = new THREE.TextureLoader()
+        this.textures = 
+        {
+            bg: this.loader.load('../images/Background.png'),
+            head: this.loader.load('../images/SnakeHead.png'),
+            body: this.loader.load('../images/SnakeBody.png'),
+            bonus: this.loader.load('../images/SnakeBonus.png')
+        }        
         
-        this.initConfig()
-        this.iniRenderer()
         this.setCamera()
+        this.initRenderer()
         this.initMap()
     }
     
-
     destructor()
     {
         this.timer.off('tick')
@@ -34,55 +48,35 @@ export default class Application
     }
 
     setCamera()
-    {
-        var w = 1600
-        var h = 896
-        var aspectRatio = h / w;
-        var left = -aspectRatio*2
-        var right = aspectRatio*2
-        var top = 1
-        var bottom = -1
+    {   
+        var left = 0
+        var right = WIDTH
+        var top = 0
+        var bottom = HEIGHT
         var near = -1
-        var far = 1
-                
-        this.camera = new THREE.OrthographicCamera(
-            left,
-            right,
-            top,
-            bottom,
-            near,
-            far);
-        this.camera.updateProjectionMatrix();
+        var far = 1           
+        this.camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far)
+        this.camera.zoom = 1
     }
     
-    initConfig()
-    {
-        this.config = {}
-        this.config.debug = true
-    }
-
     initMap()
     {
         this.game = new Game({
-            config: this.config,
             timer: this.timer,
+            textures: this.textures
         })
         this.scene.add(this.game.container)
     }
 
-    iniRenderer()
+    initRenderer()
     {
         // Scene
         this.scene = new THREE.Scene();
 
         // Renderer
-        this.renderer = new THREE.WebGLRenderer({
-            canvas: this.canvas,
-            alpha: true
-        });
+        this.renderer = new THREE.WebGLRenderer({canvas: this.canvas});
         this.renderer.setSize(this.window.width, this.window.height);
         document.body.appendChild(this.renderer.domElement );
-        //this.renderer.setClearColor(0x414141, 1)
         this.renderer.setClearColor(0xaaeeff, 1)
         this.renderer.setPixelRatio(1)
         this.renderer.gammaOutPut = true
@@ -90,8 +84,9 @@ export default class Application
 
         
         this.draw = this.draw.bind(this)
+        this.resize = this.resize.bind(this)
         //Render Event
-        this.timer.on('tick', this.draw);
+        this.timer.on('tick', this.draw)
         //Render Event
         this.timer.on('reach', () =>
         {
@@ -99,11 +94,21 @@ export default class Application
         })
 
         // Resize event
-        this.window.on('resize', () =>
-        {
-            this.setCamera()
-            this.renderer.setSize(this.window.width, this.window.height)
-        })
+        this.window.on('resize', this.resize)
+    }
+    
+    resize()
+    {
+        //RENDERER UPDATE
+        var width = this.window.width
+        var height = this.window.height
+        this.renderer.setSize(width, height)
+        //CAMERA UPDATE
+        this.camera.right = width
+        this.camera.bottom = height
+        this.camera.updateProjectionMatrix()
+        //RESIZE GEO
+        this.game.resize(width, height) 
     }
 
     draw()

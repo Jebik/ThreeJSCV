@@ -1,20 +1,19 @@
-import Head from './head.js'
-import Body from './body.js'
 import Keyboard from './keyboard.js'
+import TexturePlane from './texturePlane.js';
 
 const Dir = Object.freeze({
-	Down: {x:0, y:-1},
+	Up: {x:0, y:-1},
     Left: {x:-1, y:0},
-    Up: {x:0, y:1},
+    Down: {x:0, y:1},
 	Right: {x:1, y:0}});
 
 class Snake
 {
     constructor(data)
     {
-        this.config = data.config
         this.container = data.container
-        this.keyboard = new Keyboard() 
+        this.textures = data.textures
+        this.keyboard = new Keyboard()
 
         this.onDirKeyDown = (_event) =>
         {
@@ -26,8 +25,11 @@ class Snake
 
     grow()
     {
-        console.log("GROW")
-        var body = new Body()
+        var body = new TexturePlane({
+            width: 64,
+            height: 64,
+            texture: this.textures.body
+        });
         body.setPosition(-1, -1)
         this.bodyList.push(body)        
         this.container.add(body.container)
@@ -73,7 +75,7 @@ class Snake
             { return b != body })
         });
         this.head.setPosition(12,6)
-        this.dir = Dir.Right
+        this.dir = Dir.Right 
         this.nextDir = Dir.Right
         this.x = this.head.x;
         this.y = this.head.y
@@ -81,7 +83,11 @@ class Snake
 
     initHead()
     {
-        this.head = new Head()
+        this.head = new TexturePlane({
+            width: 64,
+            height: 64,
+            texture: this.textures.head
+        });
         this.container.add(this.head.container)
         this.bodyList = []
         this.reset()
@@ -94,6 +100,10 @@ class Snake
     
     reach()
     {        
+        if (this.nextDir != this.dir)
+        {
+            this.head.rotate(this.nextDir)
+        }
         var last_x = this.x
         var last_y = this.y
         this.dir = this.nextDir
@@ -109,6 +119,14 @@ class Snake
             last_x = curr_x;
             last_y = curr_y;           
             body.setPosition(body.x,body.y)
+        })
+    }
+    
+    resize(width, height)
+    {
+        this.head.resize(width, height)
+        this.bodyList.forEach(body => {
+            body.resize(width, height)
         })
     }
 }

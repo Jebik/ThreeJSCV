@@ -1,17 +1,15 @@
-
-import Background from './bg.js'
-import  { Snake } from './snake.js' 
 import BonusManager from './bonusManager.js'
-import Keyboard from './keyboard.js'
 import Difficulty, { DifficultyLevel } from './difficulty.js'
-
+import Keyboard from './keyboard.js'
+import TexturePlane from './texturePlane.js'
+import  { Snake } from './snake.js'
 export default class
 {
     constructor(data)
     {      
-        // Options
-        this.config = data.config
+        //param
         this.timer = data.timer
+        this.textures = data.textures
 
         // Set up 
         this.container = new THREE.Object3D()
@@ -26,8 +24,16 @@ export default class
         this.initSnake()
         this.initDifficulty()
         this.initBonus()
-        this.reset()
+        this.reset() 
     }
+
+    resize(width, height)
+    {
+        this.bg.resize(width, height)
+        this.snake.resize(width, height)
+        this.bonusManager.resize(width, height)
+    }
+
 
     onKeyDown(key)
     {
@@ -98,6 +104,7 @@ export default class
         this.bonusManager = new BonusManager({
             snake: this.snake,
             container: this.container,
+            textures: this.textures,
             game: this,
         })
     }
@@ -105,9 +112,8 @@ export default class
     initSnake()
     {
         this.snake = new Snake({
-            config: this.config,
-            timer: this.timer,
-            container: this.container
+            container: this.container,
+            textures: this.textures
         })
     }
 
@@ -118,7 +124,11 @@ export default class
 
     initBackground()
     {
-        this.bg = new Background()
+        this.bg = new TexturePlane({
+            width: 1600,
+            height: 896,
+            texture: this.textures.bg
+        });
         this.container.add(this.bg.container)
     }
 }

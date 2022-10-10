@@ -25,6 +25,5 @@ export default class WindowsSize extends EventsHandler
         this.height = window.innerHeight
 
         this.trigger('resize')
-        console.log("Width: " + this.width + " Height: " + this.height)
     }
 }
