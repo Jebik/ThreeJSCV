@@ -18,7 +18,6 @@ export default class Application
         this.initConfig()
         this.iniRenderer()
         this.initCamera()
-        this.initCube()
         this.initMap()
     }
 
@@ -32,24 +31,14 @@ export default class Application
 
     initCamera()
     {
-        this.camera = new THREE.PerspectiveCamera( 120, 3, 3, 1000 );
-        this.camera.position.z = 5;
+        this.camera = new THREE.PerspectiveCamera( 45, this.window.width/this.window.height, 1, 1000 );
+        this.camera.position.z = 1.3;
     }
     
     initConfig()
     {
         this.config = {}
         this.config.debug = true
-    }
-
-
-    initCube()
-    {
-        // Time tick
-        this.timer.on('tick', () =>
-        {
-            
-        })
     }
 
     initMap()
