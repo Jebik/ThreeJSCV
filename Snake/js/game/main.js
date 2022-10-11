@@ -29,6 +29,8 @@ export default class
 
     resize(width, height)
     {
+        this.width = width
+        this.height = height
         this.bg.resize(width, height)
         this.snake.resize(width, height)
         this.bonusManager.resize(width, height)

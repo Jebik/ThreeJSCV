@@ -30,6 +30,7 @@ class Snake
             height: 64,
             texture: this.textures.body
         });
+        body.resize(this.width, this.height)
         body.setPosition(-1, -1)
         this.bodyList.push(body)        
         this.container.add(body.container)

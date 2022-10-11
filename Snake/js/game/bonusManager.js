@@ -42,6 +42,7 @@ export default class BonusManager
                 height: 64,
                 texture: this.textures.bonus
             });
+            bonus.resize(this.width, this.height)
             bonus.setPosition(x, y)
             this.bonusList.push(bonus)
             this.container.add(bonus.container)
@@ -68,6 +69,8 @@ export default class BonusManager
     
     resize(width, height)
     {
+        this.width = width
+        this.height = height
         this.bonusList.forEach(bonus => {
             bonus.resize(width, height)
         })
