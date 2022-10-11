@@ -81,6 +81,7 @@ export default class Application
             textures: this.textures
         })
         this.scene.add(this.game.container)
+        this.resize();
     }
 
     initRenderer()
