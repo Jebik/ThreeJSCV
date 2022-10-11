@@ -136,6 +136,8 @@ class Snake
     
     resize(width, height)
     {
+        this.width = width
+        this.height = height
         this.head.resize(width, height)
         this.bodyList.forEach(body => {
             body.resize(width, height)
