@@ -27,10 +27,25 @@ export default class Application
         this.loader = new THREE.TextureLoader()
         this.textures = 
         {
-            bg: this.loader.load('../images/Background.png'),
-            head: this.loader.load('../images/SnakeHead.png'),
-            body: this.loader.load('../images/SnakeBody.png'),
-            bonus: this.loader.load('../images/SnakeBonus.png')
+            bg: 
+            {
+                data: this.loader.load('../images/Background.png')
+            },
+            head: 
+            {
+                data: this.loader.load('../images/SnakeHead.png'),
+                alpha: this.loader.load('../images/SnakeHeadAlpha.png')
+            },
+            body: 
+            {
+                data: this.loader.load('../images/SnakeBody.png'), 
+                alpha: this.loader.load('../images/SnakeBodyAlpha.png')
+            },
+            bonus: 
+            {
+                data: this.loader.load('../images/SnakeBonus.png'),
+                alpha: this.loader.load('../images/SnakeBonusAlpha.png')
+            }
         }        
         
         this.setCamera()

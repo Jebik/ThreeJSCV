@@ -76,6 +76,7 @@ class Snake
         });
         this.head.setPosition(12,6)
         this.dir = Dir.Right 
+        this.head.rotate(this.dir)
         this.nextDir = Dir.Right
         this.x = this.head.x;
         this.y = this.head.y
@@ -86,7 +87,8 @@ class Snake
         this.head = new TexturePlane({
             width: 64,
             height: 64,
-            texture: this.textures.head
+            texture: this.textures.head,
+            rotatable: true
         });
         this.container.add(this.head.container)
         this.bodyList = []
@@ -95,7 +97,16 @@ class Snake
 
     eat_himself()
     {
-        return false;
+        var ret = false;
+        this.bodyList.forEach(body => {
+            console.log("HEAD x:"+this.x+" y:"+this.y)
+            if (body.x == this.x && body.y == this.y)
+            {
+                console.log("BODY x:"+body.x+" y:"+body.y)
+                ret = true;
+            }
+        });
+        return ret;
     }
     
     reach()

@@ -41,7 +41,15 @@ export default class
         {
             console.log("Start GAME")
             this.running = true;
-        }        
+        }      
+        else
+        {
+            if (key == 'p')
+            {
+                this.running = false;
+                alert("Jeu en pause\nAppuyer sur n'importe quel touche pour reprendre!")
+            }
+        }  
     }
 
     reset()
@@ -127,7 +135,8 @@ export default class
         this.bg = new TexturePlane({
             width: 1600,
             height: 896,
-            texture: this.textures.bg
+            texture: this.textures.bg,
+            alphaMapIgnore: true
         });
         this.container.add(this.bg.container)
     }

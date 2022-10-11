@@ -12,21 +12,44 @@ export default class TexturePlane
         this.offset_y = this.h/2.
         this.ratio_w = this.w/1600.
         this.ratio_h = this.h/896.
+        this.rotatable = data.rotatable
+        this.alphaMapIgnore = data.alphaMapIgnore
     
         // Geometry
         this.geometry = new THREE.PlaneGeometry(this.w, this.h)
         
         //Texture
         this.texture = data.texture
-        this.texture.center.set(0.5, 0.5);
-        this.texture.rotation = this.getRotation(Dir.Up); 
-        
+        if (this.rotatable)
+        {
+            this.texture.data.center.set(0.5, 0.5);
+            this.texture.data.rotation = this.getRotation(Dir.Up);
+        }
+        else
+        {
+            this.texture.data.offset.set(0, 1);
+            this.texture.data.repeat.set(1, -1);              
+        } 
         // Container
         this.container = new THREE.Object3D()
-        this.material = new THREE.MeshBasicMaterial({
-            map: this.texture,
-            side: THREE.DoubleSide,
-        })
+
+        if (this.alphaMapIgnore)
+        {
+            this.material = new THREE.MeshBasicMaterial({
+                map: this.texture.data,
+                side: THREE.DoubleSide, 
+            })
+        }
+        else
+        {
+            this.material = new THREE.MeshBasicMaterial({
+                map: this.texture.data, 
+                alphaMap: this.texture.alpha,
+                transparent: true,
+                side: THREE.DoubleSide, 
+            })
+        }
+
 
         // Mesh
         this.mesh = new THREE.Mesh(this.geometry, this.material)
@@ -59,11 +82,7 @@ export default class TexturePlane
     
     rotate(rotation)
     {
-        console.log(rotation)
-        /*
-            ON ROTATE LA TEXTURE
-        */
-        this.texture.rotation = this.getRotation(rotation); // rotation is around [ 0.5, 0.5 ]
+        this.texture.data.rotation = this.getRotation(rotation); // rotation is around [ 0.5, 0.5 ]
 
         //POS
         var x = this.w*this.x + this.offset_x
@@ -74,7 +93,9 @@ export default class TexturePlane
         this.container.remove(this.mesh)
         //RECREATE MATERIAL
         this.material = new THREE.MeshBasicMaterial({
-            map: this.texture,
+            map: this.texture.data,
+            alphaMap: this.texture.alpha,
+            transparent: true,
             side: THREE.DoubleSide,
         })
         //RECREATE MESH
