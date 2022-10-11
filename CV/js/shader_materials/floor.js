@@ -21,17 +21,9 @@ void main()
 
 export default function()
 {
-    var text = new THREE.TextureLoader().load('../images/text.png')
     const material = new THREE.ShaderMaterial({
         vertexShader: vertexShader, 
         fragmentShader: fragmentShader,
-        uniforms: 
-        {
-            tBackground:
-            {
-                value: text
-            }
-        }
     })
     
     return material

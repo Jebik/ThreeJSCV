@@ -1,5 +1,3 @@
-
-import './lib/three/three.js'
 import WindowSize from './utils/WindowSize.js'
 import Timer from './utils/Timer.js'
 import Map from './game/main.js'

@@ -29,22 +29,22 @@ export default class Application
         {
             bg: 
             {
-                data: this.loader.load('../images/Background.png')
+                data: this.loader.load('./images/Background.png')
             },
             head: 
             {
-                data: this.loader.load('../images/SnakeHead.png'),
-                alpha: this.loader.load('../images/SnakeHeadAlpha.png')
+                data: this.loader.load('./images/SnakeHead.png'),
+                alpha: this.loader.load('./images/SnakeHeadAlpha.png')
             },
             body: 
             {
-                data: this.loader.load('../images/SnakeBody.png'), 
-                alpha: this.loader.load('../images/SnakeBodyAlpha.png')
+                data: this.loader.load('./images/SnakeBody.png'), 
+                alpha: this.loader.load('./images/SnakeBodyAlpha.png')
             },
             bonus: 
             {
-                data: this.loader.load('../images/SnakeBonus.png'),
-                alpha: this.loader.load('../images/SnakeBonusAlpha.png')
+                data: this.loader.load('./images/SnakeBonus.png'),
+                alpha: this.loader.load('./images/SnakeBonusAlpha.png')
             }
         }        
         
