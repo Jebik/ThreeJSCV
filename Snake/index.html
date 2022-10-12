@@ -4,12 +4,15 @@
 	</head>
 	<body style="margin: 0;padding:0;position:absolute;top:0;left:0;width: 100%;height: 100%;"">
 		<script type="module">		
-const _path = ''
+window._path = ''
 
-async function _import(path)
+window._import = async function _import(path)
 {
+	console.log(_path)
+	let {default: ret} = await import(_path+path);
     return ret
 }
+
 
 console.log(_import)
 
@@ -20,6 +23,6 @@ async function app () {
 
 app()
 		</script>
-        <object data="./snake.html" width="100%" height="100%" type="text/html"/>
+		<canvas style="margin: 0;padding:0;position:absolute;top:0;left:0;width: 100%;height: 100%;" class="canvas"></canvas>
 	</body>
 </html>

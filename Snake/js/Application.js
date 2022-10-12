@@ -1,6 +1,16 @@
 import WindowSize from './utils/WindowSize.js'
 import Timer from './utils/Timer.js'
 import Game from './game/main.js'
+/*
+window._path = './js/'
+let WindowSize = await _import('utils/WindowSize.js');
+let Timer = await _import('utils/Timer.js');
+let Game = await _import('game/main.js');
+console.log(window._path)
+console.log(WindowSize)
+console.log(Timer)
+console.log(Game)
+*/
 /* 
 IMPORT THREE
 import './lib/three.js'
@@ -24,27 +34,28 @@ export default class Application
 
     init() 
     {
+        console.log("Texture LOADER" + window._path)
         this.loader = new THREE.TextureLoader()
         this.textures = 
         {
             bg: 
             {
-                data: this.loader.load('./images/Background.png')
+                data: this.loader.load(_path+'./images/Background.png')
             },
             head: 
             {
-                data: this.loader.load('./images/SnakeHead.png'),
-                alpha: this.loader.load('./images/SnakeHeadAlpha.png')
+                data: this.loader.load(_path+'./images/SnakeHead.png'),
+                alpha: this.loader.load(_path+'./images/SnakeHeadAlpha.png')
             },
             body: 
             {
-                data: this.loader.load('./images/SnakeBody.png'), 
-                alpha: this.loader.load('./images/SnakeBodyAlpha.png')
+                data: this.loader.load(_path+'./images/SnakeBody.png'), 
+                alpha: this.loader.load(_path+'./images/SnakeBodyAlpha.png')
             },
             bonus: 
             {
-                data: this.loader.load('./images/SnakeBonus.png'),
-                alpha: this.loader.load('./images/SnakeBonusAlpha.png')
+                data: this.loader.load(_path+'./images/SnakeBonus.png'),
+                alpha: this.loader.load(_path+'./images/SnakeBonusAlpha.png')
             }
         }        
         
@@ -88,8 +99,11 @@ export default class Application
     {
         // Scene
         this.scene = new THREE.Scene();
+        
+        console.log(this.scene)
 
         // Renderer
+        console.log(this.canvas)
         this.renderer = new THREE.WebGLRenderer({canvas: this.canvas});
         this.renderer.setSize(this.window.width, this.window.height);
         document.body.appendChild(this.renderer.domElement );

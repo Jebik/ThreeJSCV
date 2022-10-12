@@ -1,21 +1,21 @@
-this.konamiCode = {}
-this.konamiCode.sequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
-this.konamiCode.keyIndex = 0
-this.konamiCode.latestKeys = []
-this.konamiCode.count = 0
+window.konamiCode = {}
+window.konamiCode.sequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
+window.konamiCode.keyIndex = 0
+window.konamiCode.latestKeys = []
+window.konamiCode.count = 0
 
-this.konamiCode.testInput = (_input) =>
+window.konamiCode.testInput = (_input) =>
 {
-    this.konamiCode.latestKeys.push(_input)
+    window.konamiCode.latestKeys.push(_input)
 
-    if(this.konamiCode.latestKeys.length > this.konamiCode.sequence.length)
+    if(window.konamiCode.latestKeys.length > window.konamiCode.sequence.length)
     {
-        this.konamiCode.latestKeys.shift()
+        window.konamiCode.latestKeys.shift()
     }
 
-    if(this.konamiCode.sequence.toString() === this.konamiCode.latestKeys.toString())
+    if(window.konamiCode.sequence.toString() === window.konamiCode.latestKeys.toString())
     {
-        alert("KONAMI SUCCESS")
+        load_module('./CV/')
     }
 }
 
@@ -25,8 +25,25 @@ this.konamiCode.testInput = (_input) =>
 window.addEventListener('keydown', (_event) =>
 {
     console.log('TEST')
-    if (this.konamiCode.testInput(_event.key))
+    window.konamiCode.testInput(_event.key)
+    if (_event.key == 'Escape')
     {
-        
+        load_module('./Snake/')
     }
 })
+
+window._import = async function _import(path)
+{
+	console.log(_path)
+	let {default: ret} = await import(_path+path);
+    return ret
+}
+
+
+async function load_module (path) {
+    window._path = path
+	let {default: Main} = await import(_path+'./main.js');
+	await Main()
+}
+
+load_module('./Snake/')
