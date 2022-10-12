@@ -24,5 +24,9 @@ this.konamiCode.testInput = (_input) =>
  */
 window.addEventListener('keydown', (_event) =>
 {
-    this.konamiCode.testInput(_event.key)
+    console.log('TEST')
+    if (this.konamiCode.testInput(_event.key))
+    {
+        
+    }
 })
