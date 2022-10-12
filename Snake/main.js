@@ -4,7 +4,8 @@ export default async function load() {
     let SnakeGame = await _import('./js/Application.js');
     console.log(SnakeGame)
 
-    console.log(_path)
+    console.log(window.application)
+    window.application = null
     window.application = new SnakeGame({
         $canvas: document.querySelector('.canvas'),
         useComposer: true
