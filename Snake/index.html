@@ -3,6 +3,24 @@
 	<head>
 	</head>
 	<body style="margin: 0;padding:0;position:absolute;top:0;left:0;width: 100%;height: 100%;"">
+		<script type="module">		
+const _path = ''
+
+async function _import(path)
+{
+    let {default: ret} = await import(_path+path);
+    return ret
+}
+
+import Main from './main.js'	
+
+async function app () {
+	await Main()
+}
+
+app()
+console.log(Main)
+		</script>
         <object data="./snake.html" width="100%" height="100%" type="text/html"/>
 	</body>
 </html>
