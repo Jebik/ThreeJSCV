@@ -33,10 +33,27 @@ window.addEventListener('keydown', (_event) =>
 
 async function load_module (path) {
     window._path = path
+    console.log("LOAD P1")
 	let {default: head} = await import(_path+'./head.js');
+    console.log("LOAD P2")
+	let {default: content} = await import(_path+'./content.js');
     console.log(head)
     document.getElementsByTagName('head')[0].innerHTML = head
+    
+    console.log("LOAD P3")
+    console.log(document.getElementById('content'))
+    
+    console.log("LOAD P4")
+    document.getElementById('content').innerHTML = content
+
+    console.log("LOAD P5")
 	await import(_path+'./main.js');
 }
-
-load_module('./CV/')
+document.addEventListener("load", function(event) {
+    console.log("ON LOAD?")
+    load_module('./CV/')
+});
+if (document.readyState == 'interactive')
+{
+    load_module('./CV/')
+}

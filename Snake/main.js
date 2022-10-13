@@ -7,7 +7,7 @@ export default async function load() {
     console.log(window.application)
     window.application = null
     window.application = new SnakeGame({
-        $canvas: document.querySelector('.canvas'),
+        $canvas: document.querySelector('.snake-canvas'),
         useComposer: true
     })
 }

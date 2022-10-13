@@ -5,6 +5,6 @@ console.log(window.application)
 window.application = null 
 
 window.application = new CV({
-    $canvas: document.querySelector('.canvas'),
+    $canvas: document.querySelector('.cv-canvas'),
     useComposer: true
 })
