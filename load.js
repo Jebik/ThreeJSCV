@@ -24,7 +24,6 @@ window.konamiCode.testInput = (_input) =>
  */
 window.addEventListener('keydown', (_event) =>
 {
-    console.log('TEST')
     window.konamiCode.testInput(_event.key)
     if (_event.key == 'Escape')
     {
@@ -32,18 +31,12 @@ window.addEventListener('keydown', (_event) =>
     }
 })
 
-window._import = async function _import(path)
-{
-	console.log(_path)
-	let {default: ret} = await import(_path+path);
-    return ret
-}
-
-
 async function load_module (path) {
     window._path = path
-	let {default: Main} = await import(_path+'./main.js');
-	await Main()
+	let {default: head} = await import(_path+'./head.js');
+    console.log(head)
+    document.getElementsByTagName('head')[0].innerHTML = head
+	await import(_path+'./main.js');
 }
 
 load_module('./CV/')

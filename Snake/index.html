@@ -8,7 +8,6 @@ window._path = ''
 
 window._import = async function _import(path)
 {
-	console.log(_path)
 	let {default: ret} = await import(_path+path);
     return ret
 }
