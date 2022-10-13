@@ -13,9 +13,6 @@ window._import = async function _import(path)
     return ret
 }
 
-
-console.log(_import)
-
 async function app () {
 	let {default: Main} = await import(_path+'./main.js');
 	await Main()

@@ -15,7 +15,7 @@ window.konamiCode.testInput = (_input) =>
 
     if(window.konamiCode.sequence.toString() === window.konamiCode.latestKeys.toString())
     {
-        load_module('./CV/')
+        load_module('./Snake/')
     }
 }
 
@@ -28,7 +28,7 @@ window.addEventListener('keydown', (_event) =>
     window.konamiCode.testInput(_event.key)
     if (_event.key == 'Escape')
     {
-        load_module('./Snake/')
+        load_module('./CV/')
     }
 })
 
@@ -46,4 +46,4 @@ async function load_module (path) {
 	await Main()
 }
 
-load_module('./Snake/')
+load_module('./CV/')
